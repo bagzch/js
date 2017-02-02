@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <script>
+    var objJs = {
+      myStr : "стрка",
+      myDate : new Date('01,13,2017'),
+      'myNum' : 28,
+      "myBool" : true,
+      myObj : {
+        in1 : '222',
+        in2 : 111,
+        arr1 : ["e", 3,4,'6']
+      },
+      myArr : [2,34,'2',[2,'r5',86],"dgd"]
+     }
+
+     function transferObjToJSON (objtransfer){
+
+     var strJSON = '{'
+
+     function formatJSON (objFun) {
+        
+       
+       for(var key in objFun){
+        var typeKey = {}.toString.call(objFun[key]);
+
+        switch(typeKey) {
+         case '[object Array]':
+          strJSON = strJSON + '\"'+key+'\":'
+          function typeArray (objArr){
+            strJSON = strJSON + '[';
+            objArr.forEach(function(item, i, arr) {
+              var typeItem = {}.toString.call(item);
+              switch(typeItem) {
+                case '[object String]':
+                  strJSON = strJSON + '\"' + item + '\",';
+                break;
+                case '[object Array]':
+                  typeArray(item) ;
+                break;                
+                default:
+                  strJSON = strJSON + item + ',';
+                break;
+              }
+            });
+            strJSON = strJSON.slice(0 ,strJSON.length - 1) + '],';
+          }
+          typeArray(objFun[key])               
+          break;
+
+         case '[object Object]':  
+          strJSON = strJSON + '\"'+key+'\"'+':{'; 
+          formatJSON(objFun[key]);  
+          break;
+
+         case '[object String]':  
+          strJSON = strJSON + '\"'+key+'\":'; 
+          strJSON = strJSON + '\"'+objFun[key]+'\",';  
+          break;   
+
+         case '[object Date]':  
+          strJSON = strJSON + '\"'+key+'\":'; 
+          strJSON = strJSON + '\"'+objFun[key]+'\",';  
+          break;            
+
+         default:
+          strJSON = strJSON + '\"'+key+'\"'+':'; 
+          strJSON = strJSON +objFun[key]+',';               
+          break;
+        }
+ 
+      }
+     strJSON = strJSON.slice(0 ,strJSON.length - 1) +'},'
+    }
+    formatJSON(objtransfer);
+
+    return strJSON = strJSON.slice(0 ,strJSON.length - 1)
+    }
+
+     document.write(transferObjToJSON(objJs));
+      
+    </script>
+</body>
+
+</html>

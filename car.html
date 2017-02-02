@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  
+</head>
+<body>
+
+  <script>
+    var objCar = {
+      clr : []
+    }
+    function Car(arr){
+      objCar.clr = arr;
+
+      this.addColor = function(addCol){
+        objCar.clr = objCar.clr.concat(addCol);
+      }
+    };
+
+    function xCar(xarr){
+      Car.apply(this, arguments);
+
+      this.setYear = function(setYear){
+          objCar.Year = setYear;
+        }        
+    };   
+
+  	var a = new Car(["red,blue"]);
+    var b = new xCar(["black"]);
+  	a.addColor("green");
+    b.addColor(["green"]);
+    b.setYear(2000);
+  	
+  </script>
+
+</body>
+</html>
