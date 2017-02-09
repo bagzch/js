@@ -6,31 +6,31 @@
 <body>
 
   <script>
-    var objCar = {
-      clr : []
-    }
+    
     function Car(arr){
-      objCar.clr = arr;
-
-      this.addColor = function(addCol){
-        objCar.clr = objCar.clr.concat(addCol);
-      }
+      this.clr = arr;
     };
 
-    function xCar(xarr){
-      Car.apply(this, arguments);
+    Car.prototype.addColor = function(addCol){
+        this.clr.push(addCol);
+      }
 
-      this.setYear = function(setYear){
-          objCar.Year = setYear;
-        }        
-    };   
+    function xCar(arr){
+       Car.apply(this, arguments);
+    };
+    xCar.prototype = Object.create(Car.prototype);  
+    xCar.prototype.setYear = function(setYear){
+        this.Year = setYear;
+      }
+
 
   	var a = new Car(["red,blue"]);
     var b = new xCar(["black"]);
   	a.addColor("green");
     b.addColor(["green"]);
     b.setYear(2000);
-  	
+
+      	
   </script>
 
 </body>
