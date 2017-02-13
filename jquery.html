@@ -45,8 +45,10 @@
 
 <script>
   $( ".accardion" ).click (function() {
-    if ($( this ).children("p").is(":visible")){return};
-    $( "p" ).hide('slow');
+    if ($( this ).children("p").is(":visible")){
+      $( this ).children("p").hide('slow');
+      return};
+    $ (".accardion").children("p").hide('slow');
     $( this ).children("p").show('slow');
   });
 </script>
